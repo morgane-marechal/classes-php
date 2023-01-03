@@ -51,7 +51,6 @@ class User{
                     " . $mysqli->error;
                     }
             }
-        
     }
 
     public function connect($login, $password){
@@ -79,7 +78,6 @@ class User{
         if (isset($_SESSION['login'])&& !empty($_SESSION['login'])){
             echo "Vous êtes déconnecté";
             return session_destroy();
-
         }
     }
 
@@ -118,20 +116,55 @@ class User{
             " . $mysqli->error;
             }
     }
-  
-    
+
+    public function getAllInfos(){
+        global $mysqli;
+        $allInfo = "SELECT * FROM utilisateurs";
+        $array_all=mysqli_query($mysqli,$allInfo);
+        $result_fetch_all = $array_all->fetch_all();
+       echo var_dump($result_fetch_all);
+
+    }
+
+    public function getLogin(){
+        global $mysqli;
+        $user_login = "SELECT login FROM utilisateurs WHERE login='$this->login'";
+        $array_login=mysqli_query($mysqli,$user_login);
+        $result_fetch_login = $array_login->fetch_all();
+        echo $result_fetch_login[0][0];
+    }
+
+    public function getEmail(){
+        global $mysqli;
+        $user_email = "SELECT email FROM utilisateurs WHERE email='$this->email'";
+        $array_email=mysqli_query($mysqli,$user_email);
+        $result_fetch_email = $array_email->fetch_all();
+        echo $result_fetch_email[0][0];
+    }
+
+    public function firstName(){
+        global $mysqli;
+        $user_firstname = "SELECT firstname FROM utilisateurs WHERE firstname='$this->firstname'";
+        $array_firstname=mysqli_query($mysqli,$user_firstname);
+        $result_fetch_firstname = $array_firstname->fetch_all();
+        echo $result_fetch_firstname[0][0];
+    }
+
+    public function lastName(){
+        global $mysqli;
+        $user_lastname = "SELECT lastname FROM utilisateurs WHERE lastname='$this->lastname'";
+        $array_lastname=mysqli_query($mysqli,$user_lastname);
+        $result_fetch_lastname = $array_lastname->fetch_all();
+        echo $result_fetch_lastname[0][0];
+    }
+
 }
 
 
-$update= new User("Lucia","luci@gmail.com", "Lucie", "Alamond");
-//$newuser->register("Lucia","azety","luci@gmail.com", "Lucie", "Alamond");
-//echo var_dump($lucia);
-//$lucia->register("Lucia","azerty","luci@gmail.com", "Lucie", "Alamond");
-//$kevin->register("Kevin","azerty2","kev@gmail.com", "Kevin", "Bond");
-//$barnabe= new User("Barnabe","nanrabar@gmail.com", "Bar Na Bay", "Glouglou");
+$info= new User("Lucianna","lucia@gmail.com", "Lucianna", "Alamonde");
 //$yusu->register("Yusuka","123","yusss@gmail.com", "Yusune", "Mariko");
 //echo var_dump($barnabe);
-$update->connect("Lucianna","123CF");
+//$update->connect("Lucianna","123CF");
 //$update->update("Lucianna", "123CF", "lucia@gmail.com","Lucianna","Alamonde");
 
 //echo $barnabe->isConnected();
@@ -140,6 +173,6 @@ $update->connect("Lucianna","123CF");
 //     echo "<br>La variable isConnected en global fonctionne, elle renvoie $isConnected";
 // }
 // $deleteUser= new User("Kevin","kev@gmail.com", "Kevin", "Bond");
-
 //$deleteUser->delete();
+echo $info->lastName();
 ?>

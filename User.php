@@ -19,10 +19,11 @@ echo "<br><br><br>";
 
 class User{
     private $id;
-    public $login, $email, $firstname, $lastname;
+    public $login, $password, $email, $firstname, $lastname;
 
-    function __construct($login,  $email, $firstname, $lastname) {
+    function __construct($login, $password,  $email, $firstname, $lastname) {
         $this->login = $login;
+        $this->password = $password;
         $this->email = $email;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -161,7 +162,7 @@ class User{
 }
 
 
-$info= new User("Lucianna","lucia@gmail.com", "Lucianna", "Alamonde");
+$info= new User("Lucianna","123","lucia@gmail.com", "Lucianna", "Alamonde");
 //$yusu->register("Yusuka","123","yusss@gmail.com", "Yusune", "Mariko");
 //echo var_dump($barnabe);
 //$update->connect("Lucianna","123CF");
@@ -175,4 +176,5 @@ $info= new User("Lucianna","lucia@gmail.com", "Lucianna", "Alamonde");
 // $deleteUser= new User("Kevin","kev@gmail.com", "Kevin", "Bond");
 //$deleteUser->delete();
 echo $info->lastName();
+echo var_dump($info);
 ?>

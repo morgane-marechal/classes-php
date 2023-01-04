@@ -71,11 +71,34 @@ class User{
         }
     }
 
+    public function delete(){
+        global $bdd;
+        $delete= $bdd ->prepare("DELETE from utilisateurs WHERE login = '$this->login'");
+        $delete->execute();
+        echo "<br>".$this->login." supprimé";
+        session_destroy();
+    }
+
+    public function update($newlogin, $password, $email, $firstname,$lastname){
+        global $bdd;
+        $login=$_SESSION['login']; //<- la fonction update ne fonctionne qui si un utilisateur est connecté
+        $this->password=$password;
+        $this->login = $newlogin;
+        $this->email = $email;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $sqlupdate = $bdd -> prepare("UPDATE utilisateurs SET login = '$newlogin', password = '$password', email = '$email', firstname = '$firstname', lastname = '$lastname' WHERE login = '$login'");
+        $sqlupdate->execute(array($this->login,$this->password, $this->email,$this->firstname,$this->lastname));
+        echo "Vous avez mis à jout votre profil.<br>";
+    }
+
    
 
 }
 
 $test = new User("Ala Dine","123XX", "aldino@gmail.com","Aladdin","Pshitt");
+$test -> connect("Aladdin Gredin","supermotdepasse");
 //echo $test -> register("Ala Dine","123XX", "aldino@gmail.com","Aladdin","Pshitt");
-echo $test -> connect("Ala Dine", "123XX");
+//echo $test -> delete("Ala Dine", "123XX");
+//echo $test -> update("Aladdin Gredin","supermotdepasse", "aldino@gmail.com","Aladdin","Pshitt")
 ?>

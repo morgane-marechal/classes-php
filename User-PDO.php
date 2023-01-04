@@ -92,13 +92,63 @@ class User{
         echo "Vous avez mis à jout votre profil.<br>";
     }
 
-   
+    public function isConnected(){
+        if (isset($_SESSION['login'])){
+            echo "Quelqu'un est connecté à cette page. Il s'agit de ".$_SESSION['login']."<br>";
+            global $isConnected;
+            return $isConnected = TRUE;
+        }
+    }
 
+    public function getAllInfos(){
+        global $bdd;
+        $allInfo = $bdd -> prepare("SELECT * FROM utilisateurs WHERE login = '$this->login'");
+        $allInfo -> execute();
+        $result = $allInfo->fetch(PDO::FETCH_ASSOC);
+        echo var_dump($result);
+        //tableau html -->
+        echo "<table>
+        <thead><tr><td>Id</td><td>Login</td><td>MP</td><td>Email</td><td>Prénom</td><td>Nom</td></tr></thead>
+        <tbody><tr><td> ".$result['id']." </td><td>".$result['login']."</td><td>".$result['password']."</td><td>".$result['email']."</td><td>".$result['firstname']."</td><td>".$result['lastname']."</td></tr></tbody>
+        </table>";
+    }
+
+    public function getLogin(){
+        global $bdd;
+        $allInfo = $bdd -> prepare("SELECT * FROM utilisateurs WHERE login = '$this->login'");
+        $allInfo -> execute();
+        $result = $allInfo->fetch(PDO::FETCH_ASSOC);
+        echo "<br>Le login est ".$result ['login'];
+    }
+
+    public function getEmail(){
+        global $bdd;
+        $allInfo = $bdd -> prepare("SELECT * FROM utilisateurs WHERE login = '$this->login'");
+        $allInfo -> execute();
+        $result = $allInfo->fetch(PDO::FETCH_ASSOC);
+        echo "<br>L'email est ".$result ['email'];
+    }
+
+    public function getFirstname(){
+        global $bdd;
+        $allInfo = $bdd -> prepare("SELECT * FROM utilisateurs WHERE login = '$this->login'");
+        $allInfo -> execute();
+        $result = $allInfo->fetch(PDO::FETCH_ASSOC);
+        echo "<br>Le prénom  est ".$result ['firstname'];
+    }
+
+    public function getLastname(){
+        global $bdd;
+        $allInfo = $bdd -> prepare("SELECT * FROM utilisateurs WHERE login = '$this->login'");
+        $allInfo -> execute();
+        $result = $allInfo->fetch(PDO::FETCH_ASSOC);
+        echo "<br>Le nom de famille est ".$result ['lastname'];
+    }
 }
 
-$test = new User("Ala Dine","123XX", "aldino@gmail.com","Aladdin","Pshitt");
-$test -> connect("Aladdin Gredin","supermotdepasse");
+$test = new User("Aladdin Gredin","supermotdepasse", "aldino@gmail.com","Aladdin","Pshitt");
+$test -> getAllInfos();
 //echo $test -> register("Ala Dine","123XX", "aldino@gmail.com","Aladdin","Pshitt");
-//echo $test -> delete("Ala Dine", "123XX");
+//echo $test -> connect("Aladdin Gredin", "supermotdepasse");
 //echo $test -> update("Aladdin Gredin","supermotdepasse", "aldino@gmail.com","Aladdin","Pshitt")
 ?>

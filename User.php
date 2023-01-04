@@ -17,7 +17,7 @@ if (mysqli_connect_errno()) {
 echo "<br><br><br>";
 
 
-class User{
+class Userpdo{
     private $id;
     public $login, $password, $email, $firstname, $lastname;
 
@@ -120,7 +120,7 @@ class User{
 
     public function getAllInfos(){
         global $mysqli;
-        $allInfo = "SELECT * FROM utilisateurs";
+        $allInfo = "SELECT * FROM utilisateurs WHERE login = '$this->login'";
         $array_all=mysqli_query($mysqli,$allInfo);
         $result_fetch_all = $array_all->fetch_all();
        echo var_dump($result_fetch_all);
@@ -162,7 +162,7 @@ class User{
 }
 
 
-$info= new User("Lucianna","123","lucia@gmail.com", "Lucianna", "Alamonde");
+$info= new Userpdo("Lucianna","123","lucia@gmail.com", "Lucianna", "Alamonde");
 //$yusu->register("Yusuka","123","yusss@gmail.com", "Yusune", "Mariko");
 //echo var_dump($barnabe);
 //$update->connect("Lucianna","123CF");

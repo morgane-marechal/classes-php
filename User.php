@@ -3,7 +3,7 @@ session_start();
 ?>
 <?php 
 echo "Cette page fonctionne. <br>";
-$mysqli = mysqli_connect('localhost','root','','classes');
+$mysqli = mysqli_connect('','','','');
 echo "Login de session: ".$_SESSION['login']."<br>";
 
 // Check connection
